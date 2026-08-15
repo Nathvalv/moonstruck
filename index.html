@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>moonstruck ♡</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    background:#03040c;
+    color:white;
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+/* =========================
+   UTILIDADES
+========================= */
+
+.hidden{
+    display:none !important;
+}
+
+.screen{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+    animation:fadeIn .7s ease;
+}
+
+.card{
+    width:min(94%,800px);
+    padding:25px 15px;
+    position:relative;
+    z-index:10;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 7px 2px rgba(220,230,255,.8);
+    animation:starFly linear infinite;
+}
+
+@keyframes starFly{
+    0%{
+        transform:translate(-20px,20px);
+        opacity:.1;
+    }
+    25%{
+        opacity:1;
+    }
+    100%{
+        transform:translate(110vw,-40px);
+        opacity:0;
+    }
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro,
+#cat1,
+#cat2,
+#cat3,
+#cat4,
+#shy,
+#message,
+#question,
+#love{
+    background:
+    radial-gradient(
+        circle at 50% 40%,
+        #354875 0%,
+        #17203f 35%,
+        #080b1e 72%,
+        #010207 100%
+    );
+}
+
+.introSmall{
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+    font-size:clamp(2.2rem,8vw,4.5rem);
+    margin-bottom:5px;
+}
+
+.title{
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+    font-size:clamp(4.5rem,18vw,10rem);
+    font-weight:400;
+    line-height:.9;
+    text-shadow:
+        0 0 6px white,
+        0 0 18px white,
+        0 0 40px #cadbff,
+        0 0 80px rgba(180,200,255,.7);
+    animation:titleAppear 1.8s ease;
+}
+
+@keyframes titleAppear{
+    from{
+        opacity:0;
+        transform:scale(.65);
+        filter:blur(15px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+        filter:blur(0);
+    }
+}
+
+.orangeCat{
+    font-size:clamp(5rem,22vw,10rem);
+    margin-top:25px;
+    filter:drop-shadow(0 0 15px rgba(255,180,80,.5));
+    animation:catAppear .8s ease;
+}
+
+@keyframes catAppear{
+    from{
+        opacity:0;
+        transform:translateY(35px) scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* =========================
+   BOTÓN INICIAL
+========================= */
+
+.window{
+    width:min(90%,440px);
+    margin:25px auto 0;
+    padding:31px 20px 18px;
+    position:relative;
+    background:#fff;
+    color:#111;
+    border-radius:15px;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(255,255,255,.5);
+    transition:.2s;
+    user-select:none;
+}
+
+.window:hover{
+    transform:scale(1.05);
+}
+
+.window:active{
+    transform:scale(.97);
+}
+
+.window::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:25px;
+    background:#ddd;
+    border-radius:15px 15px 0 0;
+}
+
+.windowText{
+    position:relative;
+    font-family:monospace;
+    font-size:clamp(.9rem,3.5vw,1.2rem);
+    font-weight:bold;
+    animation:glitchText .18s infinite;
+}
+
+@keyframes glitchText{
+    0%{text-shadow:2px 0 #ff3cac;}
+    50%{text-shadow:-2px 0 #35dfff;}
+    100%{text-shadow:2px 0 #ff3cac;}
+}
+
+/* =========================
+   DIÁLOGOS
+========================= */
+
+.dialogue{
+    display:inline-block;
+    max-width:92%;
+    min-height:60px;
+    padding:14px 23px;
+    margin-top:20px;
+    border-radius:20px;
+    background:rgba(7,12,30,.93);
+    border:1px solid rgba(255,255,255,.45);
+    box-shadow:0 8px 30px rgba(0,0,0,.5);
+    font-size:clamp(1.1rem,4vw,1.8rem);
+    line-height:1.45;
+    cursor:pointer;
+    user-select:none;
+}
+
+.dialogue:active{
+    transform:scale(.98);
+}
+
+.typeCursor::after{
+    content:"▋";
+    margin-left:3px;
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    0%,50%{opacity:1;}
+    51%,100%{opacity:0;}
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.message{
+    display:inline-block;
+    max-width:94%;
+    padding:20px 25px;
+    border-radius:22px;
+    background:rgba(8,12,30,.9);
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:0 10px 40px rgba(0,0,0,.45);
+    font-size:clamp(1.3rem,5vw,2.8rem);
+    line-height:1.45;
+}
+
+/* =========================
+   LUNA
+========================= */
+
+.moon{
+    position:absolute;
+    width:clamp(150px,48vw,280px);
+    height:clamp(150px,48vw,280px);
+    left:50%;
+    top:32%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff 0,
+            #f7f5e8 50%,
+            #d6d9da 100%
+        );
+    box-shadow:
+        0 0 35px 10px rgba(225,235,255,.35),
+        0 0 120px 40px rgba(174,197,255,.16);
+    z-index:1;
+    pointer-events:none;
+}
+
+/* =========================
+   PREGUNTA
+========================= */
+
+.question{
+    display:inline-block;
+    max-width:95%;
+    padding:18px 25px;
+    border-radius:22px;
+    background:rgba(8,12,30,.92);
+    border:1px solid rgba(255,255,255,.4);
+    font-size:clamp(1.5rem,5vw,3rem);
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    min-height:150px;
+    position:relative;
+}
+
+button{
+    border:1px solid rgba(255,255,255,.45);
+    border-radius:999px;
+    padding:14px 30px;
+    background:rgba(15,20,45,.95);
+    color:#fff;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.2s;
+    position:relative;
+    z-index:20;
+}
+
+button:hover{
+    transform:scale(1.06);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+#yes{
+    background:rgba(255,100,165,.4);
+}
+
+/* =========================
+   AMOR
+========================= */
+
+#love{
+    position:fixed;
+}
+
+.love{
+    display:inline-block;
+    max-width:92%;
+    padding:22px 25px;
+    border-radius:24px;
+    background:rgba(8,12,30,.92);
+    border:1px solid rgba(255,255,255,.3);
+    font-size:clamp(1.1rem,3.7vw,2rem);
+    line-height:1.6;
+    position:relative;
+    z-index:20;
+}
+
+.love strong{
+    display:block;
+    font-size:clamp(1.7rem,5vw,3rem);
+}
+
+.catFinal{
+    position:absolute;
+    z-index:5;
+    font-size:clamp(2.5rem,8vw,5rem);
+    pointer-events:none;
+    animation:float 3s ease-in-out infinite;
+}
+
+.heart{
+    position:absolute;
+    z-index:4;
+    pointer-events:none;
+    font-size:1.6rem;
+    animation:heartFloat 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-18px) rotate(3deg);
+    }
+}
+
+@keyframes heartFloat{
+    0%{
+        transform:translateY(20px);
+        opacity:0;
+    }
+    30%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+
+/* =========================
+   ERROR
+========================= */
+
+#error{
+    background:#030305;
+    font-family:monospace;
+}
+
+.binary{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    overflow:hidden;
+    color:#8fffea;
+    font-size:clamp(.55rem,1.7vw,.9rem);
+    line-height:1.5;
+    opacity:.3;
+    word-break:break-all;
+    pointer-events:none;
+}
+
+.glitch{
+    font-size:clamp(2rem,9vw,6rem);
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+        5px 0 #ff3cac,
+        -5px 0 #35dfff;
+    animation:glitch .11s infinite;
+}
+
+@keyframes glitch{
+    0%{transform:translate(0);}
+    20%{transform:translate(-6px,2px);}
+    40%{transform:translate(7px,-2px);}
+    60%{transform:translate(-3px,1px);}
+    100%{transform:translate(0);}
+}
+
+.errorBox{
+    position:relative;
+    z-index:20;
+}
+
+.finalBinary{
+    width:min(95%,720px);
+    max-height:170px;
+    overflow:auto;
+    margin:15px auto;
+    padding:15px;
+    background:rgba(0,0,0,.95);
+    border:1px solid rgba(143,255,234,.5);
+    color:#a6fff0;
+    font-size:clamp(.65rem,2.3vw,1rem);
+    line-height:1.7;
+    user-select:text;
+    cursor:text;
+}
+
+.copyButton{
+    color:#06120f;
+    background:#8fffea;
+    font-family:monospace;
+    font-weight:bold;
+    box-shadow:0 0 20px rgba(143,255,234,.35);
+}
+
+.copyStatus{
+    min-height:25px;
+    margin-top:8px;
+    color:#8fffea;
+}
+
+/* =========================
+   DECODIFICADOR
+========================= */
+
+#decode,
+#decoderInput{
+    background:#08040d;
+}
+
+.decoder{
+    width:min(92%,650px);
+    background:#10091d;
+    border:1px solid #b66cff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 0 40px rgba(166,76,255,.55);
+    position:relative;
+    z-index:20;
+}
+
+.bar{
+    height:40px;
+    padding:0 15px;
+    display:flex;
+    align-items:center;
+    background:linear-gradient(90deg,#241044,#3d1769);
+    color:#dfb5ff;
+    font-family:monospace;
+}
+
+.decoderBody{
+    padding:30px 22px;
+}
+
+.decoderBody h2{
+    font-size:clamp(1.5rem,6vw,2.5rem);
+    text-shadow:0 0 15px #c77dff;
+}
+
+.decoderBody button{
+    margin:5px;
+}
+
+#binaryInput{
+    width:100%;
+    min-height:150px;
+    resize:none;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #9954d8;
+    background:#09050f;
+    color:#dca8ff;
+    font-family:monospace;
+    outline:none;
+}
+
+.decodeButton{
+    background:linear-gradient(135deg,#6920a8,#a855f7);
+}
+
+.decodeResult{
+    min-height:55px;
+    margin-top:20px;
+    color:#fff;
+    font-size:clamp(1.2rem,4vw,2rem);
+    text-shadow:0 0 15px #d896ff;
+}
+
+/* =========================
+   VIGILANCIA
+========================= */
+
+#watch{
+    background:#020a03;
+}
+
+.watchWindow{
+    width:min(90%,600px);
+    padding:35px 25px;
+    background:#031207;
+    border:2px solid #39ff14;
+    box-shadow:
+        0 0 20px #39ff14,
+        0 0 70px rgba(57,255,20,.35);
+    font-family:monospace;
+    position:relative;
+    z-index:20;
+}
+
+.watchTitle{
+    color:#39ff14;
+    font-size:clamp(1.7rem,7vw,3.5rem);
+    text-shadow:
+        0 0 10px #39ff14,
+        0 0 30px #39ff14;
+    animation:flicker 1.5s infinite;
+}
+
+@keyframes flicker{
+    50%{opacity:.45;}
+}
+
+#userText{
+    width:100%;
+    min-height:120px;
+    margin-top:30px;
+    padding:15px;
+    background:#000;
+    border:1px solid #39ff14;
+    color:#39ff14;
+    outline:none;
+    font-family:monospace;
+    resize:none;
+}
+
+.watchButton{
+    margin-top:18px;
+    color:#001500;
+    background:#39ff14;
+    box-shadow:0 0 20px #39ff14;
+}
+
+/* =========================
+   BLANCO
+========================= */
+
+#white{
+    background:#fff;
+}
+
+.whiteWindow{
+    width:min(90%,650px);
+    padding:55px 25px;
+    background:#fff;
+    color:#111;
+    border-radius:12px;
+    box-shadow:
+        0 0 40px #fff,
+        0 0 100px rgba(255,255,255,.9);
+    position:relative;
+    z-index:20;
+}
+
+.whiteWindow h2{
+    font-size:clamp(1.7rem,6vw,3rem);
+}
+
+/* =========================
+   SPAM
+========================= */
+
+#spam{
+    background:#050505;
+}
+
+.spamWindow{
+    position:absolute;
+    width:250px;
+    min-height:110px;
+    padding:20px;
+    background:#eee;
+    color:#111;
+    border:2px solid #888;
+    box-shadow:0 0 25px rgba(255,255,255,.2);
+    font-family:monospace;
+    animation:spamShake .12s infinite;
+    z-index:10;
+}
+
+@keyframes spamShake{
+    50%{
+        transform:translate(2px,-2px);
+    }
+}
+
+/* =========================
+   ROJO
+========================= */
+
+#red{
+    background:#150000;
+}
+
+.redWindow{
+    width:min(90%,500px);
+    padding:40px 25px;
+    background:#240000;
+    border:3px solid #f22;
+    box-shadow:
+        0 0 30px red,
+        0 0 100px rgba(255,0,0,.4);
+    position:relative;
+    z-index:20;
+}
+
+.redWindow h1{
+    color:#ff3030;
+    text-shadow:0 0 15px red;
+}
+
+.redWindow button{
+    margin-top:20px;
+    background:#f22;
+}
+
+/* =========================
+   INFECTADO
+========================= */
+
+#infected{
+    background:#050000;
+}
+
+.infectedText{
+    color:#f22;
+    font-family:monospace;
+    font-size:clamp(1.4rem,5vw,3rem);
+    text-shadow:
+        0 0 10px red,
+        0 0 30px red;
+    animation:bad .1s infinite;
+}
+
+@keyframes bad{
+    50%{
+        transform:translate(-3px,2px);
+    }
+}
+
+/* =========================
+   NEGRO
+========================= */
+
+#black{
+    background:#000;
+}
+
+.blackText{
+    font-size:clamp(1.8rem,7vw,4rem);
+    text-shadow:0 0 20px #fff;
+    animation:appear 3s ease forwards;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        filter:brightness(0);
+    }
+    to{
+        opacity:1;
+        filter:brightness(1);
+    }
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#ending{
+    background:#030305;
+}
+
+.endingCat{
+    font-size:clamp(6rem,25vw,12rem);
+}
+
+.endingText{
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+    font-size:clamp(2rem,8vw,5rem);
+    text-shadow:
+        0 0 10px #fff,
+        0 0 30px rgba(255,255,255,.6);
+}
+
+.endingSmall{
+    margin-top:20px;
+    color:#aaa;
+    font-family:monospace;
+    line-height:1.6;
+}
+
+/* =========================
+   SCANLINES
+========================= */
+
+.scanlines{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    pointer-events:none;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 3px,
+            rgba(255,255,255,.025) 4px
+        );
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+
+<!-- =====================================================
+     1. INTRO
+===================================================== -->
+
+<section class="screen" id="intro">
+
+    <div class="card">
+
+        <div class="introSmall">
+            eres mi...
+        </div>
+
+        <div class="title">
+            moonstruck
+        </div>
+
+        <div class="orangeCat">
+            🐈
+        </div>
+
+        <div class="window" id="startButton">
+            <div class="windowText">
+                ░▒▓ PRESIONA AQUÍ ▓▒░
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     2. GATO
+===================================================== -->
+
+<section class="screen hidden" id="cat1">
+
+    <div class="card">
+
+        <div class="orangeCat">
+            🐈
+        </div>
+
+        <div
+            id="d1"
+            class="dialogue typeCursor"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3. GATO
+===================================================== -->
+
+<section class="screen hidden" id="cat2">
+
+    <div class="card">
+
+        <div class="orangeCat">
+            🐈
+        </div>
+
+        <div
+            id="d2"
+            class="dialogue typeCursor"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     4. GATO
+===================================================== -->
+
+<section class="screen hidden" id="cat3">
+
+    <div class="card">
+
+        <div class="orangeCat">
+            🐈
+        </div>
+
+        <div
+            id="d3"
+            class="dialogue typeCursor"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     5. GATO
+===================================================== -->
+
+<section class="screen hidden" id="cat4">
+
+    <div class="card">
+
+        <div class="orangeCat">
+            🐈
+        </div>
+
+        <div
+            id="d4"
+            class="dialogue typeCursor"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     6. SONROJADO
+===================================================== -->
+
+<section class="screen hidden" id="shy">
+
+    <div class="card">
+
+        <div class="orangeCat">
+            😳🐈
+        </div>
+
+        <div
+            id="d5"
+            class="dialogue typeCursor"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     7. MENSAJE
+===================================================== -->
+
+<section class="screen hidden" id="message">
+
+    <div class="card">
+
+        <div
+            id="typed"
+            class="message"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     8. PREGUNTA
+===================================================== -->
+
+<section class="screen hidden" id="question">
+
+    <div class="card">
+
+        <div class="question">
+            ¿Vas a quedarte siempre conmigo?
+        </div>
+
+        <div class="buttons">
+
+            <button id="yes">
+                sí ♡
+            </button>
+
+            <button id="no">
+                no
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     9. AMOR
+===================================================== -->
+
+<section class="screen hidden" id="love">
+
+    <div id="loveObjects"></div>
+
+    <div class="card">
+
+        <div class="love">
+
+            <strong>
+                ♡ eres lo mejor que me pasó, corazoncito ♡
+            </strong>
+
+            jamás lo dudes...
+
+            <br>
+
+            Quisiera poder respirar tu mismo aire ahora mismo,
+
+            <br>
+
+            pero sé que falta poco.
+
+            <br><br>
+
+            <strong>
+                te amo.
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     10. ERROR / BINARIO
+===================================================== -->
+
+<section class="screen hidden" id="error">
+
+    <div
+        class="binary"
+        id="binaryRain"
+    ></div>
+
+    <div class="card errorBox">
+
+        <div class="glitch">
+            ERROR
+        </div>
+
+        <div
+            style="
+                font-family:monospace;
+                line-height:1.8;
+                margin-bottom:10px;
+            "
+        >
+            ERROR<br>
+            ERROR<br>
+            ERROR
+        </div>
+
+        <div
+            id="finalBinary"
+            class="finalBinary"
+        ></div>
+
+        <button
+            id="copyButton"
+            class="copyButton"
+        >
+            📋 COPIAR CÓDIGO
+        </button>
+
+        <div
+            id="copyStatus"
+            class="copyStatus"
+        ></div>
+
+        <button
+            id="continueError"
+            style="
+                margin-top:10px;
+                background:#171717;
+                font-family:monospace;
+            "
+        >
+            CONTINUAR →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     11. DESCIFRADOR
+===================================================== -->
+
+<section class="screen hidden" id="decode">
+
+    <div class="decoder">
+
+        <div class="bar">
+            ● ● ● &nbsp; MESSAGE_DECODER.exe
+        </div>
+
+        <div class="decoderBody">
+
+            <h2>
+                ¿Quieres descifrar el mensaje?
+            </h2>
+
+            <button id="decodeYes">
+                Sí
+            </button>
+
+            <button id="decodeNo">
+                No
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     12. INPUT DESCIFRADOR
+===================================================== -->
+
+<section
+    class="screen hidden"
+    id="decoderInput"
+>
+
+    <div class="decoder">
+
+        <div class="bar">
+            ● ● ● &nbsp; DECODER_SEARCH
+        </div>
+
+        <div class="decoderBody">
+
+            <h2>
+                DESCIFRADOR
+            </h2>
+
+            <textarea
+                id="binaryInput"
+                placeholder="Pega el código aquí"
+            ></textarea>
+
+            <br>
+
+            <button
+                class="decodeButton"
+                id="decodeButton"
+            >
+                DESCIFRAR
+            </button>
+
+            <div
+                id="decodeResult"
+                class="decodeResult"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     13. VIGILANCIA
+===================================================== -->
+
+<section class="screen hidden" id="watch">
+
+    <div class="watchWindow">
+
+        <div class="watchTitle">
+            ESTOY VIGILÁNDOTE...
+        </div>
+
+        <textarea
+            id="userText"
+            placeholder="..."
+        ></textarea>
+
+        <br>
+
+        <button
+            class="watchButton"
+            id="watchButton"
+        >
+            CONTINUAR
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     14. BLANCO
+===================================================== -->
+
+<section class="screen hidden" id="white">
+
+    <div class="whiteWindow">
+
+        <h2>
+            Ok, ok... pero sonríes hermoso,
+            solo diré eso 👀
+        </h2>
+
+        <button id="whiteButton">
+            ...
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     15. SPAM
+===================================================== -->
+
+<section
+    class="screen hidden"
+    id="spam"
+></section>
+
+
+<!-- =====================================================
+     16. ROJO
+===================================================== -->
+
+<section class="screen hidden" id="red">
+
+    <div class="redWindow">
+
+        <h1>
+            ⚠ OCURRIÓ UN PROBLEMA :(
+        </h1>
+
+        <p>
+            Se detectó una anomalía inesperada.
+        </p>
+
+        <button id="redButton">
+            PRESIONAR
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     17. INFECTADO
+===================================================== -->
+
+<section
+    class="screen hidden"
+    id="infected"
+>
+
+    <div class="infectedText">
+
+        TU SISTEMA OPERATIVO
+        <br>
+        HA SIDO INFECTADO
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     18. NEGRO
+===================================================== -->
+
+<section
+    class="screen hidden"
+    id="black"
+>
+
+    <div class="blackText">
+        de mi amor por ti...
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     19. FINAL
+===================================================== -->
+
+<section
+    class="screen hidden"
+    id="ending"
+>
+
+    <div class="card">
+
+        <div class="endingCat">
+            🐈
+        </div>
+
+        <div
+            id="endText"
+            class="endingText"
+        ></div>
+
+        <div
+            id="endSmall"
+            class="endingSmall"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<div class="scanlines"></div>
+
+
+<script>
+
+/* =====================================================
+   ESTADO
+===================================================== */
+
+let typingTimer = null;
+
+
+/* =====================================================
+   ESTRELLAS
+===================================================== */
+
+const stars = document.getElementById("stars");
+
+for(let i = 0; i < 90; i++){
+
+    const star = document.createElement("span");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "vw";
+
+    star.style.top =
+        Math.random() * 100 + "vh";
+
+    star.style.animationDuration =
+        7 + Math.random() * 14 + "s";
+
+    star.style.animationDelay =
+        -Math.random() * 15 + "s";
+
+    const size =
+        1 + Math.random() * 2.5;
+
+    star.style.width =
+        size + "px";
+
+    star.style.height =
+        size + "px";
+
+    stars.appendChild(star);
+}
+
+
+/* =====================================================
+   CAMBIAR DE ESCENA
+===================================================== */
+
+function showScene(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(scene => {
+            scene.classList.add("hidden");
+        });
+
+    const scene =
+        document.getElementById(id);
+
+    if(scene){
+        scene.classList.remove("hidden");
+    }
+
+}
+
+
+/* =====================================================
+   ESCRIBIR TEXTO
+===================================================== */
+
+function typeText(
+    element,
+    text,
+    speed = 80,
+    callback = null
+){
+
+    clearInterval(typingTimer);
+
+    element.textContent = "";
+
+    let index = 0;
+
+    typingTimer = setInterval(() => {
+
+        element.textContent =
+            text.slice(0,index + 1);
+
+        index++;
+
+        if(index >= text.length){
+
+            clearInterval(typingTimer);
+
+            typingTimer = null;
+
+            if(callback){
+                callback();
+            }
+
+        }
+
+    },speed);
+
+}
+
+
+/* =====================================================
+   1 → 2
+===================================================== */
+
+document
+    .getElementById("startButton")
+    .addEventListener("click",() => {
+
+        showScene("cat1");
+
+        typeText(
+            document.getElementById("d1"),
+            "meow... hola mami ♡",
+            105
+        );
+
+    });
+
+
+/* =====================================================
+   2 → 3
+===================================================== */
+
+document
+    .getElementById("d1")
+    .addEventListener("click",() => {
+
+        showScene("cat2");
+
+        typeText(
+            document.getElementById("d2"),
+            "Soy tu primer hijito con Nath 🧡",
+            100
+        );
+
+    });
+
+
+/* =====================================================
+   3 → 4
+===================================================== */
+
+document
+    .getElementById("d2")
+    .addEventListener("click",() => {
+
+        showScene("cat3");
+
+        typeText(
+            document.getElementById("d3"),
+            "¿Recuerdas? Tavito 🧡",
+            105
+        );
+
+    });
+
+
+/* =====================================================
+   4 → 5
+===================================================== */
+
+document
+    .getElementById("d3")
+    .addEventListener("click",() => {
+
+        showScene("cat4");
+
+        typeText(
+            document.getElementById("d4"),
+            "Nath quiere decirte algo... ♡",
+            100
+        );
+
+    });
+
+
+/* =====================================================
+   5 → SONROJADO
+===================================================== */
+
+document
+    .getElementById("d4")
+    .addEventListener("click",() => {
+
+        showScene("shy");
+
+        typeText(
+            document.getElementById("d5"),
+            "👉👈",
+            180,
+            () => {
+
+                setTimeout(() => {
+
+                    showScene("message");
+
+                    typeText(
+                        document.getElementById("typed"),
+                        "Eres una chica muy bonita, no pienses jamás lo contrario.",
+                        75,
+                        () => {
+
+                            setTimeout(() => {
+
+                                const oldMoon =
+                                    document.querySelector(".moon");
+
+                                if(oldMoon){
+                                    oldMoon.remove();
+                                }
+
+                                const moon =
+                                    document.createElement("div");
+
+                                moon.className = "moon";
+
+                                document
+                                    .getElementById("message")
+                                    .appendChild(moon);
+
+                                setTimeout(() => {
+
+                                    showScene("question");
+
+                                },1800);
+
+                            },500);
+
+                        }
+                    );
+
+                },700);
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   BOTÓN NO
+===================================================== */
+
+const noButton =
+    document.getElementById("no");
+
+const noTexts = [
+    "no",
+    "nop 😭",
+    "casi",
+    "NOPE",
+    "ni cagando 💀",
+    "intenta otra vez",
+    "no te creo"
+];
+
+let noIndex = 0;
+
+function escapeNo(){
+
+    const x =
+        Math.random() * 280 - 140;
+
+    const y =
+        Math.random() * 180 - 90;
+
+    noButton.style.transform =
+        `translate(${x}px,${y}px)`;
+
+    noIndex =
+        (noIndex + 1) % noTexts.length;
+
+    noButton.textContent =
+        noTexts[noIndex];
+
+}
+
+noButton.addEventListener(
+    "mouseenter",
+    escapeNo
+);
+
+noButton.addEventListener(
+    "click",
+    escapeNo
+);
+
+
+/* =====================================================
+   SÍ → AMOR
+===================================================== */
+
+document
+    .getElementById("yes")
+    .addEventListener("click",() => {
+
+        showScene("love");
+
+        const objects =
+            document.getElementById("loveObjects");
+
+        objects.innerHTML = "";
+
+        for(let i = 0; i < 16; i++){
+
+            const cat =
+                document.createElement("div");
+
+            cat.className = "catFinal";
+
+            cat.textContent = [
+                "🐈",
+                "🐈‍⬛",
+                "😺",
+                "😸"
+            ][i % 4];
+
+            cat.style.left =
+                3 + Math.random() * 92 + "%";
+
+            cat.style.top =
+                5 + Math.random() * 85 + "%";
+
+            cat.style.animationDelay =
+                Math.random() * 2 + "s";
+
+            objects.appendChild(cat);
+
+        }
+
+        for(let i = 0; i < 20; i++){
+
+            const heart =
+                document.createElement("div");
+
+            heart.className = "heart";
+
+            heart.textContent = [
+                "♡",
+                "♥",
+                "💗",
+                "💕"
+            ][i % 4];
+
+            heart.style.left =
+                Math.random() * 95 + "%";
+
+            heart.style.top =
+                10 + Math.random() * 80 + "%";
+
+            heart.style.animationDelay =
+                Math.random() * 3 + "s";
+
+            objects.appendChild(heart);
+
+        }
+
+        setTimeout(() => {
+
+            showError();
+
+        },8500);
+
+    });
+
+
+/* =====================================================
+   CREAR BINARIO
+   MENSAJE CORRECTO:
+   "Te amo Abigail"
+===================================================== */
+
+const SECRET_MESSAGE =
+    "Te amo Abigail";
+
+
+function stringToBinary(text){
+
+    return [...text]
+        .map(character => {
+
+            return character
+                .charCodeAt(0)
+                .toString(2)
+                .padStart(8,"0");
+
+        })
+        .join(" ");
+
+}
+
+
+/* =====================================================
+   BINARIO → TEXTO
+===================================================== */
+
+function binaryToString(binary){
+
+    return binary
+        .trim()
+        .split(/\s+/)
+        .map(bits => {
+
+            if(!/^[01]{8}$/.test(bits)){
+                throw new Error("BINARIO_INVALIDO");
+            }
+
+            return String.fromCharCode(
+                parseInt(bits,2)
+            );
+
+        })
+        .join("");
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(){
+
+    showScene("error");
+
+    const finalBinary =
+        document.getElementById("finalBinary");
+
+    /*
+       SIEMPRE se genera desde SECRET_MESSAGE.
+       Por lo tanto nunca puede terminar diciendo
+       otra cosa por accidente.
+    */
+
+    finalBinary.textContent =
+        stringToBinary(SECRET_MESSAGE);
+
+
+    const rain =
+        document.getElementById("binaryRain");
+
+    let binaryRain = "";
+
+    for(let i = 0; i < 3000; i++){
+
+        binaryRain +=
+            Math.random() > .5
+                ? "1"
+                : "0";
+
+    }
+
+    rain.textContent =
+        binaryRain;
+
+}
+
+
+/* =====================================================
+   COPIAR
+===================================================== */
+
+document
+    .getElementById("copyButton")
+    .addEventListener("click", async () => {
+
+        const text =
+            document
+                .getElementById("finalBinary")
+                .textContent
+                .trim();
+
+        const status =
+            document.getElementById("copyStatus");
+
+        try{
+
+            if(
+                navigator.clipboard &&
+                window.isSecureContext
+            ){
+
+                await navigator.clipboard
+                    .writeText(text);
+
+            }else{
+
+                fallbackCopy(text);
+
+            }
+
+            status.textContent =
+                "✓ CÓDIGO COPIADO";
+
+        }catch(error){
+
+            status.textContent =
+                "Selecciona el código y cópialo manualmente.";
+
+        }
+
+    });
+
+
+function fallbackCopy(text){
+
+    const textarea =
+        document.createElement("textarea");
+
+    textarea.value = text;
+
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+
+    const successful =
+        document.execCommand("copy");
+
+    document.body.removeChild(textarea);
+
+    if(!successful){
+        throw new Error("COPY_FAILED");
+    }
+
+}
+
+
+/* =====================================================
+   ERROR → DESCIFRADOR
+===================================================== */
+
+document
+    .getElementById("continueError")
+    .addEventListener("click",() => {
+
+        showScene("decode");
+
+    });
+
+
+/* =====================================================
+   DESCIFRADOR: SÍ
+===================================================== */
+
+document
+    .getElementById("decodeYes")
+    .addEventListener("click",() => {
+
+        showScene("decoderInput");
+
+        document
+            .getElementById("decodeResult")
+            .textContent = "";
+
+    });
+
+
+/* =====================================================
+   DESCIFRADOR: NO
+===================================================== */
+
+document
+    .getElementById("decodeNo")
+    .addEventListener("click",() => {
+
+        showScene("watch");
+
+        document
+            .getElementById("userText")
+            .value = "";
+
+    });
+
+
+/* =====================================================
+   DESCIFRAR
+===================================================== */
+
+document
+    .getElementById("decodeButton")
+    .addEventListener("click",() => {
+
+        const input =
+            document
+                .getElementById("binaryInput")
+                .value
+                .trim();
+
+        const result =
+            document
+                .getElementById("decodeResult");
+
+        if(!input){
+
+            result.textContent =
+                "Pega el código primero... 👀";
+
+            return;
+
+        }
+
+        try{
+
+            const decoded =
+                binaryToString(input);
+
+            result.textContent =
+                decoded;
+
+            /*
+               COMPROBACIÓN EXTRA:
+               el código correcto DEBE producir
+               exactamente el mensaje secreto.
+            */
+
+            if(decoded === SECRET_MESSAGE){
+
+                setTimeout(() => {
+
+                    showScene("watch");
+
+                },2500);
+
+            }else{
+
+                result.textContent =
+                    "Código incorrecto.";
+
+            }
+
+        }catch(error){
+
+            result.textContent =
+                "Código binario inválido.";
+
+        }
+
+    });
+
+
+/* =====================================================
+   VIGILANCIA → BLANCO
+===================================================== */
+
+document
+    .getElementById("watchButton")
+    .addEventListener("click",() => {
+
+        showScene("white");
+
+    });
+
+
+/* =====================================================
+   BLANCO → SPAM
+===================================================== */
+
+document
+    .getElementById("whiteButton")
+    .addEventListener("click",() => {
+
+        showSpam();
+
+    });
+
+
+/* =====================================================
+   SPAM
+===================================================== */
+
+function showSpam(){
+
+    const spam =
+        document.getElementById("spam");
+
+    spam.innerHTML = "";
+
+    showScene("spam");
+
+    for(let i = 0; i < 28; i++){
+
+        const windowBox =
+            document.createElement("div");
+
+        windowBox.className =
+            "spamWindow";
+
+        windowBox.textContent =
+            "ERROR 0x" +
+            Math.floor(
+                Math.random() * 999999
+            ) +
+            "\n\nSYSTEM FAILURE";
+
+        windowBox.style.left =
+            Math.random() * 80 + "vw";
+
+        windowBox.style.top =
+            Math.random() * 80 + "vh";
+
+        spam.appendChild(windowBox);
+
+    }
+
+    setTimeout(() => {
+
+        showScene("red");
+
+    },3000);
+
+}
+
+
+/* =====================================================
+   ROJO → INFECTADO
+===================================================== */
+
+document
+    .getElementById("redButton")
+    .addEventListener("click",() => {
+
+        showScene("infected");
+
+        setTimeout(() => {
+
+            showScene("black");
+
+            setTimeout(() => {
+
+                startEnding();
+
+            },2800);
+
+        },2200);
+
+    });
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+function startEnding(){
+
+    showScene("ending");
+
+    const endText =
+        document.getElementById("endText");
+
+    const endSmall =
+        document.getElementById("endSmall");
+
+    endText.textContent = "";
+    endSmall.textContent = "";
+
+    typeText(
+        endText,
+        "Mami...",
+        180,
+        () => {
+
+            setTimeout(() => {
+
+                typeText(
+                    endSmall,
+                    "Disculpa, me distraje y te dejé sola...",
+                    85,
+                    () => {
+
+                        setTimeout(() => {
+
+                            typeText(
+                                endSmall,
+                                "pero supongo no pasó nada...",
+                                85,
+                                () => {
+
+                                    setTimeout(() => {
+
+                                        typeText(
+                                            endSmall,
+                                            "iwal te entregué el mensaje de Nath, baiii te amoo ♡",
+                                            75,
+                                            () => {
+
+                                                setTimeout(() => {
+
+                                                    typeText(
+                                                        endSmall,
+                                                        "hasta luego... Te seguiré viendo desde el rincón.",
+                                                        75
+                                                    );
+
+                                                },1200);
+
+                                            }
+                                        );
+
+                                    },1200);
+
+                                }
+                            );
+
+                        },1200);
+
+                    }
+                );
+
+            },1000);
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
